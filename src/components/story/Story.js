@@ -15,7 +15,7 @@ const Story = ({story}) => {
             <CardContent>
                 <Typography variant="body1" sx={{color: 'text.secondary', textAlign: 'left'}}>
                     {story.description + " "}
-                    <Link href={story.url} underline="always" target="_blank" rel="noreferrer">
+                    <Link href={story.url} underline="always" target="_blank" rel="noopener noreferrer">
                         Read the full article here
                     </Link>
                 </Typography>
