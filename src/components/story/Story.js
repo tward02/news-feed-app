@@ -5,24 +5,23 @@ import {Card, CardContent, CardHeader, CardMedia, Link, Typography} from "@mui/m
 const Story = ({story}) => {
 
     return (
-        <Card sx={{ maxWidth: '30%' }}>
-            <CardHeader title={"Były minister zdrowia w nowym programie Gońca"} subheader="September 14, 2016"/>
+        <Card sx={{maxWidth: '95%'}} className={classes.story}>
+            <CardHeader title={story.title} subheader={new Date(story.published_at).toLocaleString()}/>
             <CardMedia
                 component="img"
-                // height="300"
-                image="https:\/\/static.wirtualnemedia.pl\/media\/new\/top\/675f3809ab843_balicki-gonieczdrowie.jpg"
-                alt="News Story"
+                image={story.image_url}
+                alt={story.description}
             />
             <CardContent>
-                <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'left' }}>
-                    {"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like." + " "}
-                    <Link href="#" underline="always">
-                        View full article here
+                <Typography variant="body1" sx={{color: 'text.secondary', textAlign: 'left'}}>
+                    {story.description + " "}
+                    <Link href={story.url} underline="always" target="_blank" rel="noreferrer">
+                        Read the full article here
                     </Link>
                 </Typography>
             </CardContent>
         </Card>
     );
-}
+};
 
 export default Story;

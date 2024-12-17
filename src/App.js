@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
 import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
-import Feed from "./pages/Feed";
-import Story from "./components/story/Story";
+import Feed from "./components/feed/Feed";
+import classes from './App.module.css';
 
-function App() {
-
+const App = () => {
 
     const queryClient = new QueryClient()
 
-
     return (
         <QueryClientProvider client={queryClient}>
-            <div className="App">
-                <header className="App-header">
-                    <Story></Story>
-                    <Feed></Feed>
+            <div className={classes.app}>
+                <header className={classes.appHeader}>
+                    News Feed
                 </header>
+                <Feed/>
             </div>
         </QueryClientProvider>
     );
-}
+};
 
 export default App;

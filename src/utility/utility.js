@@ -60,5 +60,4 @@ export const getCountries = () => {
 
 export const getCategories = () => {
     return ["general", "science", "sports", "business", "health", "entertainment", "tech", "politics", "food", "travel"]
-
 };
