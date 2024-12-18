@@ -1,10 +1,10 @@
 .feed {
     background-color: #555e70;
     overflow-y: auto;
-    max-height: 90vh;
+    max-height: 84.3vh;
     max-width: 70vh;
     min-width: 70vh;
-    margin-left: 15vh;
+    min-height: 84.3vh;
 }
 
 .loading {
@@ -18,7 +18,7 @@
 }
 
 .filter {
-    display: inline-flex;
+    background-color: white;
 }
 
 .stack {
@@ -28,6 +28,15 @@
 }
 
 .buttons {
+    max-height: 8vh;
     color: white;
     font-size: 25px;
+}
+
+.buttonLeft {
+    margin-right: 15%;
+}
+
+.buttonRight {
+    margin-left: 26%;
 }

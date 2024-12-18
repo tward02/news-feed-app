@@ -1,9 +1,10 @@
 .listBody {
     overflow-y: scroll;
-    max-height: 39.7vh;
+    max-height: 36.3vh;
 }
 
 .list {
     background-color: aliceblue;
     max-width: 200px;
+    margin-top: 1vh;
 }

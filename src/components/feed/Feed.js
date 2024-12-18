@@ -5,8 +5,9 @@ import Story from "../story/Story";
 import {getCategories, getCountries} from "../../utility/utility";
 import FilterList from "../feedMultiSelect/FilterList";
 import LoadingStory from "../story/LoadingStory";
-import {Button, IconButton, Stack} from "@mui/material";
-import {ArrowBack, ArrowForward, Clear, Refresh} from "@mui/icons-material";
+import {IconButton, Stack, Tooltip} from "@mui/material";
+import {ArrowBack, ArrowForward, Clear, FilterAlt, Refresh} from "@mui/icons-material";
+import ErrorStory from "../story/ErrorStory";
 
 const Feed = () => {
 
@@ -34,7 +35,6 @@ const Feed = () => {
     useEffect(() => {
         if (storiesError) {
             setPageLoading(false);
-
         }
     }, [storiesError]);
 
@@ -46,50 +46,56 @@ const Feed = () => {
     const resetFilters = () => {
         setRegions([]);
         setCategories([]);
-        setApply(!apply)
+        setApply(!apply);
         setPage(1);
     }
 
-    const getNavButtons = () => {
-        const displayNavButtons = !storiesLoading && !storiesError;
-        return (
-            displayNavButtons ? (<>
+    const updateFeed = () => {
+        setApply(!apply);
+        setPage(1);
+    }
 
-                <IconButton disabled={page <= 1} className={classes.buttonLeft} color={"inherit"}
+    const displayNavButtons = !storiesLoading && !storiesError;
+
+    const getNavButtons = () => {
+
+        return (<>
+
+                <IconButton disabled={page <= 1 || !displayNavButtons} className={classes.buttonLeft} color={"inherit"}
                             onClick={() => setPage(page - 1)}><ArrowBack/> Previous</IconButton>
                 {"Page " + page}
-                <IconButton className={classes.buttonRight} color={"inherit"}
+                <IconButton disabled={!displayNavButtons} className={classes.buttonRight} color={"inherit"}
                             onClick={() => setPage(page + 1)}>Next <ArrowForward/></IconButton>
-            </>) : (<></>)
+            </>
         )
     }
 
     return (
         <div>
             <Stack direction="column" spacing={1}>
-                <div className={classes.buttons}>
-                    {getNavButtons()}
-                </div>
+
                 <div>
                     <Stack direction="row" spacing={2} className={classes.stack}>
-
-                        <div className={classes.feed}>
-                            {(storiesLoading || pageLoading) ? Array(3).fill(<LoadingStory/>) : stories.map((story) =>
-                                <Story
-                                    key={story.uuid} story={story}/>)}
+                        <div>
+                            <div className={classes.feed}>
+                                {storiesError ? <ErrorStory error={storiesError} reloadFn={() => updateFeed()}/>: (storiesLoading || pageLoading) ? Array(3).fill(
+                                    <LoadingStory/>) : stories.map((story) =>
+                                    <Story
+                                        key={story.uuid} story={story}/>)}
+                            </div>
+                            <div className={classes.buttons}>
+                                {getNavButtons()}
+                            </div>
                         </div>
 
-                        <div>
+                        <div className={classes.filter}>
                             <div>
-                                <Button onClick={() => {
-                                    setApply(!apply)
-                                    setPage(1)
-                                }}>Apply</Button>
-                                <IconButton onClick={() => {
-                                    setApply(!apply)
-                                    setPage(1)
-                                }}><Refresh/></IconButton>
-                                <IconButton onClick={() => resetFilters()}><Clear/></IconButton>
+                                <Tooltip title={"Apply filters"}><IconButton
+                                    disabled={!displayNavButtons} onClick={() => updateFeed()}><FilterAlt/> Apply</IconButton></Tooltip>
+                                <Tooltip title={"Refresh Feed"}><IconButton
+                                    disabled={!displayNavButtons} onClick={() => updateFeed()}><Refresh/></IconButton></Tooltip>
+                                <Tooltip title={"Clear Filters"}><IconButton
+                                    disabled={!displayNavButtons} onClick={() => resetFilters()}><Clear/></IconButton></Tooltip>
                             </div>
                             <FilterList items={getCountries()} title={"Filter by Region"}
                                         onChange={(items) => setRegions(items)} selectedItems={regions}/>
@@ -106,6 +112,5 @@ const Feed = () => {
 export default Feed;
 
 // TODO plan:
-// refresh button
 // description and snippet
-// error handling
+// make accessible
