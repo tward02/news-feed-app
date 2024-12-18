@@ -11,16 +11,13 @@ const FilterList = ({items, onChange, title}) => {
         const newSelectedKeys = [...selectedKeys];
 
         if (currentIndex === -1) {
-            // Add itemKey to selectedKeys
             newSelectedKeys.push(itemKey);
         } else {
-            // Remove itemKey from selectedKeys
             newSelectedKeys.splice(currentIndex, 1);
         }
 
         setSelectedKeys(newSelectedKeys);
 
-        // Pass back the selected items (full objects) to the parent
         const selectedItems = items.filter((item) => newSelectedKeys.includes(item.key));
         onChange(selectedItems);
     };

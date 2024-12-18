@@ -3,6 +3,7 @@
     overflow-y: auto;
     max-height: 90vh;
     max-width: 70vh;
+    min-width: 70vh;
     margin: auto;
 }
 

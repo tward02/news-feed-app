@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {useFetchStories} from "../../api/useFetchStories";
 import classes from './Feed.module.css';
 import Story from "../story/Story";
-import {CircularProgress} from "@mui/material";
 import {getCategories, getCountries} from "../../utility/utility";
 import FilterList from "../feedMultiSelect/FilterList";
+import LoadingStory from "../story/LoadingStory";
 
 const Feed = () => {
 
@@ -32,27 +32,17 @@ const Feed = () => {
         }
     }, [storiesError]);
 
-    const getFeed = () => {
-        return (
-            storiesLoading ? (
-                <div className={classes.loading}>
-                    <CircularProgress/>
-                    <div>Loading Feed</div>
-                </div>
-            ) : (
-                <div className={classes.feed}>
-                    {stories.map((story) => <Story key={story.uuid} story={story}/>)}
-                </div>
-            ))
-    }
-
     return (
         <div>
             <div className={classes.filter}>
-                {getFeed()}
+                <div className={classes.feed}>
+                    {storiesLoading ? Array(3).fill(<LoadingStory/>) : stories.map((story) => <Story key={story.uuid} story={story}/>)}
+                </div>
                 <div>
-                    <FilterList items={getCountries()} title={"Filter by Region"} onChange={(items) => setRegions(items)}/>
-                    <FilterList items={getCategories()} title={"Filter by Category"} onChange={(items) => setCategories(items)}/>
+                    <FilterList items={getCountries()} title={"Filter by Region"}
+                                onChange={(items) => setRegions(items)}/>
+                    <FilterList items={getCategories()} title={"Filter by Category"}
+                                onChange={(items) => setCategories(items)}/>
                 </div>
             </div>
         </div>
@@ -62,8 +52,7 @@ const Feed = () => {
 export default Feed;
 
 // TODO plan:
-// filter buttons -> resets pages -> change filters to vertical lists to right/left of feed
+// filter buttons -> resets pages
 // refresh button
 // pages + selection buttons at bottom of page
-// loading 3 stories as place holder
 // description and snippet
