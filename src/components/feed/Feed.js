@@ -116,5 +116,7 @@ const Feed = () => {
 export default Feed;
 
 // TODO plan:
+// this will be removed btw
 // story drop down to reveal snippet?
 // mobile support
+// tests
