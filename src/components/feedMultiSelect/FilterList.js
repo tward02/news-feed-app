@@ -43,6 +43,7 @@ const FilterList = ({items, onChange, title, selectedItems}) => {
                             >
                                 <Checkbox
                                     checked={selectedKeys.includes(item.key)}
+                                    onClick={() => handleToggle(item.key)}
                                     onChange={(e) => e.stopPropagation()}
                                     inputProps={{
                                         'aria-label': title + ' ' + item.value,

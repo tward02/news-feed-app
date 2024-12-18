@@ -61,10 +61,10 @@ const Feed = () => {
 
         return (<>
 
-                <IconButton disabled={page <= 1 || !displayNavButtons} className={classes.buttonLeft} color={"inherit"}
+                <IconButton aria-label={"navigate to previous page, page " + (page - 1)} disabled={page <= 1 || !displayNavButtons} className={classes.buttonLeft} color={"inherit"}
                             onClick={() => setPage(page - 1)}><ArrowBack/> Prev</IconButton>
                 <div className={classes.pageNumber}>{"Page " + page}</div>
-                <IconButton disabled={!displayNavButtons} className={classes.buttonRight} color={"inherit"}
+                <IconButton aria-label={"navigate to next page, page " + (page + 1)} disabled={!displayNavButtons} className={classes.buttonRight} color={"inherit"}
                             onClick={() => setPage(page + 1)}>Next <ArrowForward/></IconButton>
             </>
         )
