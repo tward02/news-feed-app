@@ -4,7 +4,7 @@
     max-height: 90vh;
     max-width: 70vh;
     min-width: 70vh;
-    margin: auto;
+    margin-left: 15vh;
 }
 
 .loading {
@@ -19,4 +19,24 @@
 
 .filter {
     display: inline-flex;
+}
+
+.stack {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    color: white;
+    font-size: 25px;
+    margin-inside: auto;
+}
+
+.buttonLeft {
+    margin-right: 100px;
+}
+
+.buttonRight {
+    margin-left: 100px;
 }
