@@ -23,6 +23,7 @@ export const useFetchStories = (categories, regions, page) => {
         queryKey: ['stories'],
         retry: false,
         refetchOnWindowFocus: false,
+        cacheTime: 0,
         queryFn: async () => await getTopStories(categories, regions, page),
     });
     return {storiesLoading, storiesError, storiesData, storiesSuccess, storiesRefetch};

@@ -30,13 +30,4 @@
 .buttons {
     color: white;
     font-size: 25px;
-    margin-inside: auto;
-}
-
-.buttonLeft {
-    margin-right: 100px;
-}
-
-.buttonRight {
-    margin-left: 100px;
 }

@@ -1,10 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ButtonBase, Checkbox, List, ListItem, Paper, Typography} from "@mui/material";
 import classes from './FilterList.module.css';
 
-const FilterList = ({items, onChange, title}) => {
+const FilterList = ({items, onChange, title, selectedItems}) => {
 
     const [selectedKeys, setSelectedKeys] = useState([]);
+
+    useEffect(() => {
+        if (selectedItems) {
+            setSelectedKeys(selectedItems?.map((item) => item.key));
+        }
+    }, [selectedItems]);
 
     const handleToggle = (itemKey) => {
         const currentIndex = selectedKeys.indexOf(itemKey);

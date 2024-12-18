@@ -5,8 +5,8 @@ import Story from "../story/Story";
 import {getCategories, getCountries} from "../../utility/utility";
 import FilterList from "../feedMultiSelect/FilterList";
 import LoadingStory from "../story/LoadingStory";
-import {IconButton, Stack} from "@mui/material";
-import {ArrowBack, ArrowForward} from "@mui/icons-material";
+import {Button, IconButton, Stack} from "@mui/material";
+import {ArrowBack, ArrowForward, Clear, Refresh} from "@mui/icons-material";
 
 const Feed = () => {
 
@@ -14,6 +14,7 @@ const Feed = () => {
     const [stories, setStories] = useState([]);
     const [regions, setRegions] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [apply, setApply] = useState(false);
     const [pageLoading, setPageLoading] = useState(false);
     const {
         storiesLoading,
@@ -40,20 +41,34 @@ const Feed = () => {
     useEffect(() => {
         setPageLoading(true);
         storiesRefetch();
-    }, [page, storiesRefetch])
+    }, [page, storiesRefetch, apply]);
 
-    const displayNavButtons = !storiesLoading && !storiesError;
+    const resetFilters = () => {
+        setRegions([]);
+        setCategories([]);
+        setApply(!apply)
+        setPage(1);
+    }
+
+    const getNavButtons = () => {
+        const displayNavButtons = !storiesLoading && !storiesError;
+        return (
+            displayNavButtons ? (<>
+
+                <IconButton disabled={page <= 1} className={classes.buttonLeft} color={"inherit"}
+                            onClick={() => setPage(page - 1)}><ArrowBack/> Previous</IconButton>
+                {"Page " + page}
+                <IconButton className={classes.buttonRight} color={"inherit"}
+                            onClick={() => setPage(page + 1)}>Next <ArrowForward/></IconButton>
+            </>) : (<></>)
+        )
+    }
 
     return (
         <div>
             <Stack direction="column" spacing={1}>
                 <div className={classes.buttons}>
-                    {displayNavButtons ?
-                        <IconButton disabled={page <= 1} className={classes.buttonLeft} color={"inherit"}
-                                    onClick={() => setPage(page - 1)}><ArrowBack/> Previous</IconButton> : null}
-                    {displayNavButtons ? ("Page " + page) : null}
-                    {displayNavButtons ? <IconButton className={classes.buttonRight} color={"inherit"}
-                                                     onClick={() => setPage(page + 1)}>Next <ArrowForward/></IconButton> : null}
+                    {getNavButtons()}
                 </div>
                 <div>
                     <Stack direction="row" spacing={2} className={classes.stack}>
@@ -65,10 +80,21 @@ const Feed = () => {
                         </div>
 
                         <div>
+                            <div>
+                                <Button onClick={() => {
+                                    setApply(!apply)
+                                    setPage(1)
+                                }}>Apply</Button>
+                                <IconButton onClick={() => {
+                                    setApply(!apply)
+                                    setPage(1)
+                                }}><Refresh/></IconButton>
+                                <IconButton onClick={() => resetFilters()}><Clear/></IconButton>
+                            </div>
                             <FilterList items={getCountries()} title={"Filter by Region"}
-                                        onChange={(items) => setRegions(items)}/>
+                                        onChange={(items) => setRegions(items)} selectedItems={regions}/>
                             <FilterList items={getCategories()} title={"Filter by Category"}
-                                        onChange={(items) => setCategories(items)}/>
+                                        onChange={(items) => setCategories(items)} selectedItems={categories}/>
                         </div>
                     </Stack>
                 </div>
@@ -80,7 +106,6 @@ const Feed = () => {
 export default Feed;
 
 // TODO plan:
-// filter buttons -> resets pages
 // refresh button
 // description and snippet
-//error handling
+// error handling
