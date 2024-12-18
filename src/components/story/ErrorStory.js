@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Story.module.css';
-import {Card, CardContent, CardHeader, IconButton, Typography} from "@mui/material";
+import {Button, Card, CardContent, CardHeader, Typography} from "@mui/material";
 import {Refresh} from "@mui/icons-material";
 
 const ErrorStory = ({error, reloadFn}) => {
@@ -25,7 +25,7 @@ const ErrorStory = ({error, reloadFn}) => {
                     {getErrorMessage()}
                 </Typography>
             </CardContent>
-            <IconButton onClick={() => reloadFn()}><Refresh/> Try Again</IconButton>
+            <Button onClick={() => reloadFn()} startIcon={<Refresh/>}>Try Again</Button>
         </Card>
     );
 };

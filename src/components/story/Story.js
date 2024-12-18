@@ -14,8 +14,13 @@ const Story = ({story}) => {
             />
             <CardContent>
                 <Typography variant="body1" sx={{color: 'text.secondary', textAlign: 'left'}}>
-                    {story.description + " "}
-                    <Link href={story.url} underline="always" target="_blank" rel="noopener noreferrer">
+                    {story.description}
+                </Typography>
+                <Typography variant="body2" sx={{color: 'text.secondary', textAlign: 'left'}}>
+                    {story.snippet + " "}
+                    <Link aria-label={story.title + ', ' + story.description + ' Read the full article here'}
+                          href={story.url} underline="always" target="_blank" rel="noopener noreferrer"
+                          component={"button"}>
                         Read the full article here
                     </Link>
                 </Typography>

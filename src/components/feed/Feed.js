@@ -5,7 +5,7 @@ import Story from "../story/Story";
 import {getCategories, getCountries} from "../../utility/utility";
 import FilterList from "../feedMultiSelect/FilterList";
 import LoadingStory from "../story/LoadingStory";
-import {IconButton, Stack, Tooltip} from "@mui/material";
+import {Button, IconButton, Stack, Tooltip} from "@mui/material";
 import {ArrowBack, ArrowForward, Clear, FilterAlt, Refresh} from "@mui/icons-material";
 import ErrorStory from "../story/ErrorStory";
 
@@ -62,8 +62,8 @@ const Feed = () => {
         return (<>
 
                 <IconButton disabled={page <= 1 || !displayNavButtons} className={classes.buttonLeft} color={"inherit"}
-                            onClick={() => setPage(page - 1)}><ArrowBack/> Previous</IconButton>
-                {"Page " + page}
+                            onClick={() => setPage(page - 1)}><ArrowBack/> Prev</IconButton>
+                <div className={classes.pageNumber}>{"Page " + page}</div>
                 <IconButton disabled={!displayNavButtons} className={classes.buttonRight} color={"inherit"}
                             onClick={() => setPage(page + 1)}>Next <ArrowForward/></IconButton>
             </>
@@ -71,14 +71,15 @@ const Feed = () => {
     }
 
     return (
-        <div>
+        <div role={"main"}>
             <Stack direction="column" spacing={1}>
 
                 <div>
                     <Stack direction="row" spacing={2} className={classes.stack}>
                         <div>
                             <div className={classes.feed}>
-                                {storiesError ? <ErrorStory error={storiesError} reloadFn={() => updateFeed()}/>: (storiesLoading || pageLoading) ? Array(3).fill(
+                                {storiesError ? <ErrorStory error={storiesError}
+                                                            reloadFn={() => updateFeed()}/> : (storiesLoading || pageLoading) ? Array(3).fill(
                                     <LoadingStory/>) : stories.map((story) =>
                                     <Story
                                         key={story.uuid} story={story}/>)}
@@ -90,12 +91,15 @@ const Feed = () => {
 
                         <div className={classes.filter}>
                             <div>
-                                <Tooltip title={"Apply filters"}><IconButton
-                                    disabled={!displayNavButtons} onClick={() => updateFeed()}><FilterAlt/> Apply</IconButton></Tooltip>
+                                <Tooltip title={"Apply filters"}><Button
+                                    variant={"contained"} disabled={!displayNavButtons} onClick={() => updateFeed()}
+                                    startIcon={<FilterAlt/>}>Apply</Button></Tooltip>
                                 <Tooltip title={"Refresh Feed"}><IconButton
-                                    disabled={!displayNavButtons} onClick={() => updateFeed()}><Refresh/></IconButton></Tooltip>
+                                    disabled={!displayNavButtons}
+                                    onClick={() => updateFeed()}><Refresh/></IconButton></Tooltip>
                                 <Tooltip title={"Clear Filters"}><IconButton
-                                    disabled={!displayNavButtons} onClick={() => resetFilters()}><Clear/></IconButton></Tooltip>
+                                    disabled={!displayNavButtons}
+                                    onClick={() => resetFilters()}><Clear/></IconButton></Tooltip>
                             </div>
                             <FilterList items={getCountries()} title={"Filter by Region"}
                                         onChange={(items) => setRegions(items)} selectedItems={regions}/>
@@ -112,5 +116,5 @@ const Feed = () => {
 export default Feed;
 
 // TODO plan:
-// description and snippet
-// make accessible
+// story drop down to reveal snippet?
+// mobile support

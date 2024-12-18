@@ -28,15 +28,24 @@
 }
 
 .buttons {
+    background-color: #555e70;
     max-height: 8vh;
     color: white;
     font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .buttonLeft {
-    margin-right: 15%;
+    text-align: left;
 }
 
 .buttonRight {
-    margin-left: 26%;
+    text-align: right;
+}
+
+.pageNumber {
+    text-align: center;
+    flex: 1;
 }

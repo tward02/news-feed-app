@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ButtonBase, Checkbox, List, ListItem, Paper, Typography} from "@mui/material";
+import {Checkbox, List, ListItem, Paper, Typography} from "@mui/material";
 import classes from './FilterList.module.css';
 
 const FilterList = ({items, onChange, title, selectedItems}) => {
@@ -31,11 +31,9 @@ const FilterList = ({items, onChange, title, selectedItems}) => {
     return (
         <div className={classes.list}>
             <Typography variant="h6">{title}</Typography>
-            <List className={classes.listBody}>
+            <List aria-label={title} className={classes.listBody}>
                 {items.map((item) => (
                     <ListItem key={item.key} disablePadding>
-                        <ButtonBase style={{width: "100%"}}
-                                    onClick={() => handleToggle(item.key)}>
                             <Paper elevation={1}
                                    style={{
                                        width: "100%",
@@ -46,10 +44,12 @@ const FilterList = ({items, onChange, title, selectedItems}) => {
                                 <Checkbox
                                     checked={selectedKeys.includes(item.key)}
                                     onChange={(e) => e.stopPropagation()}
+                                    inputProps={{
+                                        'aria-label': title + ' ' + item.value,
+                                    }}
                                 />
                                 <Typography style={{marginLeft: "8px"}}>{item.value}</Typography>
                             </Paper>
-                        </ButtonBase>
                     </ListItem>
                 ))}
             </List>
