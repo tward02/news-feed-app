@@ -18,14 +18,14 @@ const ErrorStory = ({error, reloadFn}) => {
     };
 
     return (
-        <Card sx={{maxWidth: '95%'}} className={classes.story}>
-            <CardHeader sx={{color: 'red'}} title={"Error Fetching Top Stories"}/>
-            <CardContent>
+        <Card id={"error.story"} sx={{maxWidth: '95%'}} className={classes.story}>
+            <CardHeader id={"error.header"} sx={{color: 'red'}} title={"Error Fetching Top Stories"}/>
+            <CardContent id={"error.content"}>
                 <Typography variant="body1" sx={{color: 'red', textAlign: 'left'}}>
                     {getErrorMessage()}
                 </Typography>
             </CardContent>
-            <Button onClick={() => reloadFn()} startIcon={<Refresh/>}>Try Again</Button>
+            <Button id={"error.refreshButton"} onClick={() => reloadFn()} startIcon={<Refresh/>}>Try Again</Button>
         </Card>
     );
 };

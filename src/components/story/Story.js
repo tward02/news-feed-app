@@ -6,13 +6,15 @@ const Story = ({story}) => {
 
     return (
         <Card sx={{maxWidth: '95%'}} className={classes.story}>
-            <CardHeader title={story.title} subheader={new Date(story.published_at).toLocaleString()}/>
+            <CardHeader id={`header.${story.uuid}`} title={story.title}
+                        subheader={new Date(story.published_at).toLocaleString()}/>
             <CardMedia
+                id={`media.${story.uuid}`}
                 component="img"
                 image={story.image_url}
                 alt={story.description}
             />
-            <CardContent>
+            <CardContent id={`content.${story.uuid}`}>
                 <Typography variant="body1" sx={{color: 'text.secondary', textAlign: 'left'}}>
                     {story.description}
                 </Typography>

@@ -31,26 +31,27 @@ const FilterList = ({items, onChange, title, selectedItems}) => {
     return (
         <div className={classes.list}>
             <Typography variant="h6">{title}</Typography>
-            <List aria-label={title} className={classes.listBody}>
+            <List id={`filter.${title}`} aria-label={title} className={classes.listBody}>
                 {items.map((item) => (
-                    <ListItem key={item.key} disablePadding>
-                            <Paper elevation={1}
-                                   style={{
-                                       width: "100%",
-                                       display: "flex",
-                                       alignItems: "center",
-                                   }}
-                            >
-                                <Checkbox
-                                    checked={selectedKeys.includes(item.key)}
-                                    onClick={() => handleToggle(item.key)}
-                                    onChange={(e) => e.stopPropagation()}
-                                    inputProps={{
-                                        'aria-label': title + ' ' + item.value,
-                                    }}
-                                />
-                                <Typography style={{marginLeft: "8px"}}>{item.value}</Typography>
-                            </Paper>
+                    <ListItem key={item.key} disablePadding id={`filterItem.${item.key}`}>
+                        <Paper elevation={1}
+                               style={{
+                                   width: "100%",
+                                   display: "flex",
+                                   alignItems: "center",
+                               }}
+                        >
+                            <Checkbox
+                                id={`filterCheckbox.${item.key}`}
+                                checked={selectedKeys.includes(item.key)}
+                                onClick={() => handleToggle(item.key)}
+                                onChange={(e) => e.stopPropagation()}
+                                inputProps={{
+                                    'aria-label': title + ' ' + item.value,
+                                }}
+                            />
+                            <Typography style={{marginLeft: "8px"}}>{item.value}</Typography>
+                        </Paper>
                     </ListItem>
                 ))}
             </List>
