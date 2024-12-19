@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useFetchStories} from "../../api/useFetchStories";
 import classes from './Feed.module.css';
 import Story from "../story/Story";
@@ -16,31 +16,31 @@ const Feed = () => {
     const [regions, setRegions] = useState([]);
     const [categories, setCategories] = useState([]);
     const [apply, setApply] = useState(false);
-    const [pageLoading, setPageLoading] = useState(false);
+    const feedRef = useRef(null);
     const {
         storiesLoading,
         storiesError,
         storiesData,
         storiesSuccess,
-        storiesRefetch
+        storiesRefetch,
+        storiesRefetching,
+        refetchError
     } = useFetchStories(categories.map((item) => item.key), regions.map((item) => item.key), page);
 
     useEffect(() => {
         if (storiesSuccess && storiesData) {
             setStories(storiesData?.data);
-            setPageLoading(false);
         }
     }, [storiesData, storiesSuccess]);
 
     useEffect(() => {
-        if (storiesError) {
-            setPageLoading(false);
-        }
-    }, [storiesError]);
-
-    useEffect(() => {
-        setPageLoading(true);
         storiesRefetch();
+        if (feedRef.current) {
+            feedRef.current.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        }
     }, [page, storiesRefetch, apply]);
 
     const resetFilters = () => {
@@ -48,14 +48,14 @@ const Feed = () => {
         setCategories([]);
         setApply(!apply);
         setPage(1);
-    }
+    };
 
     const updateFeed = () => {
         setApply(!apply);
         setPage(1);
-    }
+    };
 
-    const displayNavButtons = !storiesLoading && !storiesError;
+    const displayNavButtons = !storiesLoading && !storiesError && !refetchError && !storiesRefetching;
 
     const getNavButtons = () => {
 
@@ -77,9 +77,9 @@ const Feed = () => {
                 <div>
                     <Stack direction="row" spacing={2} className={classes.stack}>
                         <div>
-                            <div className={classes.feed}>
-                                {storiesError ? <ErrorStory error={storiesError}
-                                                            reloadFn={() => updateFeed()}/> : (storiesLoading || pageLoading) ? Array(3).fill(
+                            <div ref={feedRef} className={classes.feed}>
+                                {storiesError || refetchError ? <ErrorStory error={storiesError}
+                                                            reloadFn={() => updateFeed()}/> : (storiesLoading || storiesRefetching) ? Array(3).fill(
                                     <LoadingStory/>) : stories.map((story) =>
                                     <Story
                                         key={story.uuid} story={story}/>)}
@@ -117,6 +117,5 @@ export default Feed;
 
 // TODO plan:
 // this will be removed btw
-// story drop down to reveal snippet?
 // mobile support
 // tests

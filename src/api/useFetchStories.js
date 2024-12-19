@@ -18,7 +18,9 @@ export const useFetchStories = (categories, regions, page) => {
         error: storiesError,
         data: storiesData,
         isSuccess: storiesSuccess,
-        refetch: storiesRefetch
+        refetch: storiesRefetch,
+        isRefetching: storiesRefetching,
+        isRefetchError: refetchError
     } = useQuery({
         queryKey: ['stories'],
         retry: false,
@@ -26,5 +28,8 @@ export const useFetchStories = (categories, regions, page) => {
         cacheTime: 0,
         queryFn: async () => await getTopStories(categories, regions, page),
     });
-    return {storiesLoading, storiesError, storiesData, storiesSuccess, storiesRefetch};
+    if (storiesData) {
+        storiesData.timestamp = Date.now();
+    }
+    return {storiesLoading, storiesError, storiesData, storiesSuccess, storiesRefetch, storiesRefetching, refetchError};
 }

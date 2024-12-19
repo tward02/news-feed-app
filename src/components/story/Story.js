@@ -16,7 +16,7 @@ const Story = ({story}) => {
                 <Typography variant="body1" sx={{color: 'text.secondary', textAlign: 'left'}}>
                     {story.description}
                 </Typography>
-                <Typography variant="body2" sx={{color: 'text.secondary', textAlign: 'left'}}>
+                <Typography variant="body2" sx={{color: 'text.secondary', textAlign: 'left', borderTop: "solid 1px", paddingTop: "10px", marginTop: "10px"}}>
                     {story.snippet + " "}
                     <Link aria-label={story.title + ', ' + story.description + ' Read the full article here'}
                           href={story.url} underline="always" target="_blank" rel="noopener noreferrer"
