@@ -6,9 +6,9 @@ const token = process.env.REACT_APP_API_KEY;
 
 const getTopStories = async (categories, regions, page) => {
     const response = await axios.get(baseUrl + 'news/top?api_token=' + token
-                                                        + (categories?.length > 0 ? "&categories=" + categories.join(',') : "")
-                                                        + (regions?.length > 0 ? "&locale=" + regions.join(',') : "")
-                                                        + "&page=" + page);
+        + (categories?.length > 0 ? "&categories=" + categories.join(',') : "")
+        + (regions?.length > 0 ? "&locale=" + regions.join(',') : "")
+        + "&page=" + page);
     return response?.data;
 }
 

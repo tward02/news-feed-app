@@ -61,28 +61,28 @@ const Feed = () => {
 
         return (<>
 
-                <IconButton aria-label={"navigate to previous page, page " + (page - 1)} disabled={page <= 1 || !displayNavButtons} className={classes.buttonLeft} color={"inherit"}
+                <IconButton aria-label={"navigate to previous page, page " + (page - 1)}
+                            disabled={page <= 1 || !displayNavButtons} className={classes.buttonLeft} color={"inherit"}
                             onClick={() => setPage(page - 1)}><ArrowBack/> Prev</IconButton>
                 <div className={classes.pageNumber}>{"Page " + page}</div>
-                <IconButton aria-label={"navigate to next page, page " + (page + 1)} disabled={!displayNavButtons} className={classes.buttonRight} color={"inherit"}
+                <IconButton aria-label={"navigate to next page, page " + (page + 1)} disabled={!displayNavButtons}
+                            className={classes.buttonRight} color={"inherit"}
                             onClick={() => setPage(page + 1)}>Next <ArrowForward/></IconButton>
             </>
         )
-    }
+    };
 
     return (
         <div role={"main"}>
             <Stack direction="column" spacing={1}>
-
                 <div>
                     <Stack direction="row" spacing={2} className={classes.stack}>
                         <div>
                             <div ref={feedRef} className={classes.feed}>
                                 {storiesError || refetchError ? <ErrorStory error={storiesError}
-                                                            reloadFn={() => updateFeed()}/> : (storiesLoading || storiesRefetching) ? Array(3).fill(
+                                                                            reloadFn={() => updateFeed()}/> : (storiesLoading || storiesRefetching) ? Array(3).fill(
                                     <LoadingStory/>) : stories.map((story) =>
-                                    <Story
-                                        key={story.uuid} story={story}/>)}
+                                    <Story key={story.uuid} story={story}/>)}
                             </div>
                             <div className={classes.buttons}>
                                 {getNavButtons()}
@@ -117,5 +117,4 @@ export default Feed;
 
 // TODO plan:
 // this will be removed btw
-// mobile support
 // tests
