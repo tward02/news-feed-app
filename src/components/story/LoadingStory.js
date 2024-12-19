@@ -6,8 +6,8 @@ import ContentLoader from "react-content-loader";
 const LoadingStory = () => {
 
     return (
-        <Card id={"loading.story"} sx={{maxWidth: '95%'}} className={classes.story}>
-            <CardContent id={"loading.content"}>
+        <Card data-testid={"loading.story"} sx={{maxWidth: '95%'}} className={classes.story}>
+            <CardContent data-testid={"loading.content"}>
                 <ContentLoader
                     speed={2}
                     viewBox="0 0 400 300"

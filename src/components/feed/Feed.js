@@ -63,11 +63,12 @@ const Feed = () => {
         return (
             <>
                 <IconButton id={"nextButton"} aria-label={"navigate to previous page, page " + (page - 1)}
-                            disabled={page <= 1 || !displayNavButtons} className={classes.buttonLeft} color={"inherit"}
+                            disabled={page <= 1 || !displayNavButtons || stories.length === 0}
+                            className={classes.buttonLeft} color={"inherit"}
                             onClick={() => setPage(page - 1)}><ArrowBack/> Prev</IconButton>
                 <div id={"pageNumber"} className={classes.pageNumber}>{"Page " + page}</div>
                 <IconButton id={"prevButton"} aria-label={"navigate to next page, page " + (page + 1)}
-                            disabled={!displayNavButtons}
+                            disabled={!displayNavButtons || stories.length === 0}
                             className={classes.buttonRight} color={"inherit"}
                             onClick={() => setPage(page + 1)}>Next <ArrowForward/></IconButton>
             </>
@@ -82,9 +83,12 @@ const Feed = () => {
                         <div>
                             <div id={"storyFeed"} ref={feedRef} className={classes.feed}>
                                 {storiesError || refetchError ? <ErrorStory error={storiesError}
-                                                                            reloadFn={() => updateFeed()}/> : (storiesLoading || storiesRefetching) ? Array(3).fill(
-                                    <LoadingStory/>) : stories.map((story) =>
-                                    <Story key={story.uuid} story={story}/>)}
+                                                                            reloadFn={() => updateFeed()}
+                                                                            title={"Error Fetching Top Stories"}/> : (storiesLoading || storiesRefetching) ? Array(3).fill(
+                                    <LoadingStory/>) : (stories.length === 0) ?
+                                    <ErrorStory error={{status: -1}} reloadFn={() => updateFeed()}
+                                                title={"No Results"}/> : stories.map((story) =>
+                                        <Story key={story.uuid} story={story}/>)}
                             </div>
                             <div className={classes.buttons}>
                                 {getNavButtons()}

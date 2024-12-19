@@ -7,7 +7,7 @@ const Story = ({story}) => {
     return (
         <Card sx={{maxWidth: '95%'}} className={classes.story}>
             <CardHeader id={`header.${story.uuid}`} title={story.title}
-                        subheader={new Date(story.published_at).toLocaleString()}/>
+                        subheader={story.source + " " + new Date(story.published_at).toLocaleString()}/>
             <CardMedia
                 id={`media.${story.uuid}`}
                 component="img"
@@ -28,7 +28,7 @@ const Story = ({story}) => {
                     {story.snippet + " "}
                     <Link aria-label={story.title + ', ' + story.description + ' Read the full article here'}
                           href={story.url} underline="always" target="_blank" rel="noopener noreferrer"
-                          component={"button"}>
+                          component={"button"} onClick={() => window.open(story.url)}>
                         Read the full article here
                     </Link>
                 </Typography>
