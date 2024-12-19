@@ -27,7 +27,8 @@ const ErrorStory = ({error, reloadFn, title}) => {
                     {getErrorMessage()}
                 </Typography>
             </CardContent>
-            <Button data-testid={"error.refreshButton"} onClick={() => reloadFn()} startIcon={<Refresh/>}>Try Again</Button>
+            <Button aria-label={getErrorMessage() + ". Refresh feed"} data-testid={"error.refreshButton"}
+                    onClick={() => reloadFn()} startIcon={<Refresh/>}>Try Again</Button>
         </Card>
     );
 };
