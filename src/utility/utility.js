@@ -1,3 +1,6 @@
+/**
+ * These values are the values supported by the news api and used for filtering the API call
+ */
 export const getCountries = () => {
     return [
         {key: "ar", value: "Argentina"},

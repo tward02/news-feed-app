@@ -1,6 +1,7 @@
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 
+//retrieved from .env file
 const baseUrl = process.env.REACT_APP_BASE_URL;
 const token = process.env.REACT_APP_API_KEY;
 
@@ -12,6 +13,9 @@ const getTopStories = async (categories, regions, page) => {
     return response?.data;
 }
 
+/**
+ * Handles the api calls and states, including errors, loading and refetching the data with new parameters
+ */
 export const useFetchStories = (categories, regions, page) => {
     const {
         isLoading: storiesLoading,
