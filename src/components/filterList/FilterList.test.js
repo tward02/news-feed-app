@@ -8,9 +8,7 @@ const items = getCategories();
 const onChange = jest.fn();
 
 it('Filter list renders correctly', () => {
-    const view = render(
-        <FilterList items={items} onChange={onChange} title="Filter Test" selectedItems={[]}/>,
-    );
+    render(<FilterList items={items} onChange={onChange} title="Filter Test" selectedItems={[]}/>);
 
     expect(screen.getByText("Filter Test")).toBeInTheDocument();
     const checkboxes = screen.getAllByRole('checkbox');
@@ -26,9 +24,7 @@ it('Filter list renders correctly', () => {
 });
 
 it('Filter list empty renders correctly', () => {
-    const view = render(
-        <FilterList items={[]} onChange={onChange} title="Filter Test" selectedItems={[]}/>,
-    );
+    render(<FilterList items={[]} onChange={onChange} title="Filter Test" selectedItems={[]}/>);
 
     expect(screen.getByText("Filter Test")).toBeInTheDocument();
     expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
@@ -43,9 +39,7 @@ it('Filter list renders pre selection correctly', () => {
         }
     });
 
-    const view = render(
-        <FilterList items={items} onChange={onChange} title="Filter Test" selectedItems={selected}/>,
-    );
+    render(<FilterList items={items} onChange={onChange} title="Filter Test" selectedItems={selected}/>);
 
     expect(screen.getByText("Filter Test")).toBeInTheDocument();
     const checkboxes = screen.getAllByRole('checkbox');
@@ -69,9 +63,7 @@ it('Filter list selection functionality', () => {
         }
     });
 
-    const view = render(
-        <FilterList items={items} onChange={onChange} title="Filter Test" selectedItems={selected}/>,
-    );
+    render(<FilterList items={items} onChange={onChange} title="Filter Test" selectedItems={selected}/>);
 
     expect(screen.getByText("Filter Test")).toBeInTheDocument();
     const checkboxes = screen.getAllByRole('checkbox');

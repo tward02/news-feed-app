@@ -46,9 +46,8 @@ const noResults = {
 const reloadFn = jest.fn();
 
 it('Story renders correctly', () => {
-    const view = render(
-        <Story story={testData}/>,
-    );
+    render(<Story story={testData}/>);
+
     expect(screen.getByText("BREAKING NEWS: BOJ to raise interest rates if economy, prices move on track: Ueda")).toBeInTheDocument();
     expect(screen.getByText("BREAKING NEWS: BOJ to raise interest rates if economy, prices move on track: Ueda==Kyodo")).toBeInTheDocument();
     expect(screen.getByText("KYODO NEWS - 15 minutes ago - 15:38 | Others BREAKING NEWS: BOJ to raise interest rates if economy, prices move on track: Ueda==Kyodo")).toBeInTheDocument();
@@ -59,17 +58,15 @@ it('Story renders correctly', () => {
 });
 
 it('Loading story renders correctly', () => {
-    const view = render(
-        <LoadingStory/>,
-    );
+    render(<LoadingStory/>);
+
     expect(screen.getByTestId("loading.story")).toBeInTheDocument();
     expect(screen.getByTestId("loading.content")).toBeInTheDocument();
 });
 
 it('Error story renders correctly', () => {
-    const view = render(
-        <ErrorStory error={unauthrisedError} reloadFn={reloadFn}/>,
-    );
+    render(<ErrorStory error={unauthrisedError} reloadFn={reloadFn}/>);
+
     expect(screen.getByTestId("error.story")).toBeInTheDocument();
     expect(screen.getByTestId("error.content")).toBeInTheDocument();
     expect(screen.getByTestId("error.header")).toBeInTheDocument();
@@ -80,41 +77,36 @@ it('Error story renders correctly', () => {
 });
 
 it('No results error story renders correctly', () => {
-    const view = render(
-        <ErrorStory error={noResults} reloadFn={reloadFn} title={"No Results"}/>,
-    );
+    render(<ErrorStory error={noResults} reloadFn={reloadFn} title={"No Results"}/>);
+
     expect(screen.getByText("No Results")).toBeInTheDocument();
     expect(screen.getByText("No results for these categories at the moment. Please try again later.")).toBeInTheDocument();
 });
 
 it('Unauthorized error story renders correctly', () => {
-    const view = render(
-        <ErrorStory error={unauthrisedError} reloadFn={reloadFn} title={"Error Fetching Top Stories"}/>,
-    );
+    render(<ErrorStory error={unauthrisedError} reloadFn={reloadFn} title={"Error Fetching Top Stories"}/>);
+
     expect(screen.getByText("Error Fetching Top Stories")).toBeInTheDocument();
     expect(screen.getByText("You lack the authorisation or permissions necessary to view this content.")).toBeInTheDocument();
 });
 
 it('Payment error story renders correctly', () => {
-    const view = render(
-        <ErrorStory error={paymentError} reloadFn={reloadFn} title={"Error Fetching Top Stories"}/>,
-    );
+    render(<ErrorStory error={paymentError} reloadFn={reloadFn} title={"Error Fetching Top Stories"}/>);
+
     expect(screen.getByText("Error Fetching Top Stories")).toBeInTheDocument();
     expect(screen.getByText("You have reached your daily request limit.")).toBeInTheDocument();
 });
 
 it('Server error story renders correctly', () => {
-    const view = render(
-        <ErrorStory error={serverError} reloadFn={reloadFn} title={"Error Fetching Top Stories"}/>,
-    );
+    render(<ErrorStory error={serverError} reloadFn={reloadFn} title={"Error Fetching Top Stories"}/>);
+
     expect(screen.getByText("Error Fetching Top Stories")).toBeInTheDocument();
     expect(screen.getByText("Server error, please try again later.")).toBeInTheDocument();
 });
 
 it('App error story renders correctly', () => {
-    const view = render(
-        <ErrorStory error={appError} reloadFn={reloadFn} title={"Error Fetching Top Stories"}/>,
-    );
+    render(<ErrorStory error={appError} reloadFn={reloadFn} title={"Error Fetching Top Stories"}/>);
+
     expect(screen.getByText("Error Fetching Top Stories")).toBeInTheDocument();
     expect(screen.getByText("Something went wrong, please try again later. If issue persists, please contact administrator.")).toBeInTheDocument();
 });

@@ -62,12 +62,12 @@ const Feed = () => {
 
         return (
             <>
-                <IconButton id={"nextButton"} aria-label={"navigate to previous page, page " + (page - 1)}
+                <IconButton data-testid={"prevButton"} aria-label={"navigate to previous page, page " + (page - 1)}
                             disabled={page <= 1 || !displayNavButtons || stories.length === 0}
                             className={classes.buttonLeft} color={"inherit"}
                             onClick={() => setPage(page - 1)}><ArrowBack/> Prev</IconButton>
-                <div id={"pageNumber"} className={classes.pageNumber}>{"Page " + page}</div>
-                <IconButton id={"prevButton"} aria-label={"navigate to next page, page " + (page + 1)}
+                <div data-testid={"pageNumber"} className={classes.pageNumber}>{"Page " + page}</div>
+                <IconButton data-testid={"nextButton"} aria-label={"navigate to next page, page " + (page + 1)}
                             disabled={!displayNavButtons || stories.length === 0}
                             className={classes.buttonRight} color={"inherit"}
                             onClick={() => setPage(page + 1)}>Next <ArrowForward/></IconButton>
@@ -97,20 +97,20 @@ const Feed = () => {
 
                         <div className={classes.filter}>
                             <div>
-                                <Tooltip title={"Apply Filters"}><Button
-                                    id={"applyFiltersButton"} variant={"contained"}
+                                <Tooltip title={"Apply Filters"}><span><Button
+                                    data-testid={"applyFiltersButton"} variant={"contained"}
                                     disabled={!displayNavButtons || !filtersDirty}
                                     onClick={() => {
                                         setFiltersDirty(false);
                                         updateFeed();
                                     }}
-                                    startIcon={<FilterAlt/>}>Apply</Button></Tooltip>
-                                <Tooltip title={"Refresh Feed"}><IconButton id={"refreshButton"}
-                                                                            disabled={!displayNavButtons}
-                                                                            onClick={() => updateFeed()}><Refresh/></IconButton></Tooltip>
-                                <Tooltip title={"Clear Filters"}><IconButton id={"clearFiltersButton"}
-                                                                             disabled={!displayNavButtons}
-                                                                             onClick={() => resetFilters()}><Clear/></IconButton></Tooltip>
+                                    startIcon={<FilterAlt/>}>Apply</Button></span></Tooltip>
+                                <Tooltip title={"Refresh Feed"}><span><IconButton data-testid={"refreshButton"}
+                                                                                  disabled={!displayNavButtons}
+                                                                                  onClick={() => updateFeed()}><Refresh/></IconButton></span></Tooltip>
+                                <Tooltip title={"Clear Filters"}><span><IconButton data-testid={"clearFiltersButton"}
+                                                                                   disabled={!displayNavButtons}
+                                                                                   onClick={() => resetFilters()}><Clear/></IconButton></span></Tooltip>
                             </div>
                             <FilterList items={getCountries()} title={"Filter by Region"}
                                         onChange={(items) => {
@@ -131,5 +131,3 @@ const Feed = () => {
 };
 
 export default Feed;
-
-//TODO add tests (this will be removed)
